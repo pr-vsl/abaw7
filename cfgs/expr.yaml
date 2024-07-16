@@ -1,0 +1,32 @@
+trainer:
+  max_epochs: 20
+  enable_progress_bar: true
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.RichProgressBar
+      init_args:
+        leave: true
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        filename: 'epoch={epoch}-val_score={val/score:.4f}'
+        monitor: 'val/score'
+        mode: 'max'
+
+model:
+  label_smoothing: 0.0
+  alpha: 0.75
+  gamma: 2
+data:
+  data_dir: '/media/vthuynh/XProject/emotion/abaw7/mtl/'
+  img_size: 96
+  batch_size: 512
+  num_workers: 8
+optimizer:
+  class_path: torch.optim.AdamW
+  init_args:
+    lr: 0.005
+lr_scheduler:
+  class_path: torch.optim.lr_scheduler.CosineAnnealingLR
+  init_args:
+    T_max: 2000
+    eta_min: 1e-6
+ckpt_path: null

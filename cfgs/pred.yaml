@@ -1,0 +1,7 @@
+trainer:
+  max_epochs: 20
+  enable_progress_bar: true
+  callbacks:
+    - class_path: main.CustomWriter
+      init_args:
+        output_dir: '/media/vthuynh/XProject/emotion/abaw7/logs/lightning_logs/version_34/'

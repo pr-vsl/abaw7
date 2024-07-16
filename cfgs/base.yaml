@@ -1,0 +1,24 @@
+seed_everything: true
+trainer:
+  accelerator: auto
+  strategy: auto
+  devices: auto
+  precision: "bf16-mixed"
+  logger: null
+  callbacks: null
+  max_steps: -1
+  check_val_every_n_epoch: 1
+  num_sanity_val_steps: 0
+  enable_model_summary: null
+  accumulate_grad_batches: 1
+  deterministic: 'warn'
+  detect_anomaly: false
+  default_root_dir: '/media/vthuynh/XProject/emotion/abaw7/logs/'
+model:
+  label_smoothing: 0.0
+  alpha: 0.25
+  gamma: 2
+data:
+  data_dir: ./
+  img_size: 112
+ckpt_path: null
