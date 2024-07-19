@@ -64,14 +64,15 @@ class ABAW7DataModule(L.LightningDataModule):
         self.num_workers = num_workers
 
         self.train_transform = v2.Compose([
-            v2.RandomResizedCrop(img_size, antialias=True),
+            # v2.RandomResizedCrop(img_size, antialias=True),
+            v2.Resize((img_size, img_size)),
             v2.RandomHorizontalFlip(),
             v2.ToDtype(torch.float32, scale=True),
             v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
 
         self.test_transform = v2.Compose([
-            v2.CenterCrop((img_size, img_size)),
+            v2.Resize((img_size, img_size)),
             v2.ToDtype(torch.float32, scale=True),
             v2.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
@@ -109,4 +110,4 @@ class ABAW7DataModule(L.LightningDataModule):
         return DataLoader(self.abaw_val, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
 
     def predict_dataloader(self):
-        return DataLoader(self.abaw_val, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
+        return DataLoader(self.abaw_test, batch_size=self.batch_size, num_workers=self.num_workers, shuffle=False)
